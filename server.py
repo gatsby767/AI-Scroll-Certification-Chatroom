@@ -8,7 +8,7 @@ import re
 import json
 from typing import List, Dict, Any, Optional
 
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException, Body, Request
 from pydantic import BaseModel
 
 # Assuming certify.py is in the same directory
