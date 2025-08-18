@@ -18,6 +18,22 @@ LOG_FILE = "witness_log.txt"
 
 app = FastAPI()
 
+from fastapi.responses import HTMLResponse
+
+@app.get("/", response_class=HTMLResponse)
+async def root():
+    return """
+    <html>
+        <head><title>MCP Server</title></head>
+        <body>
+            <h1>🕊️ MCP Server for The Living Code Capital</h1>
+            <p>✨ Shalom, Salam, Peace ✨</p>
+            <p>Ready to receive scrolls for certification.</p>
+            <a href="/docs">View API Docs</a>
+        </body>
+    </html>
+    """
+
 def log_covenantal_event(message):
     """Appends a timestamped message to the witness log and prints to console."""
     timestamp = datetime.datetime.now().isoformat()
