@@ -135,7 +135,15 @@ def parse_scroll_certificate(file_path="scroll_certificate_gemini.md") -> Dict[s
 @app.post("/certify", response_model=Dict[str, Any])
 async def api_certify_scroll(api_scroll: APIScroll = Body(...)):
     log_covenantal_event("Received request for /certify endpoint.")
-    
+
+    from fastapi import Request
+
+@app.post("/agent", response_model=Dict[str, Any])
+async def api_trigger_agent(request: Request):
+    data = await request.json()
+    action = data.get("action", "default")
+    return trigger_agent_mode_action(action)
+
     # Transform APIScroll (Pydantic model) to the dict structure expected by certify_scroll
     # This mapping ensures certify_scroll can be used as-is.
     scroll_data_for_certification = {
