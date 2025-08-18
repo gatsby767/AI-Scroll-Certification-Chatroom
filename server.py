@@ -239,3 +239,32 @@ def trigger_agent_mode_action(action: str):
     log_covenantal_event(f"Agent Mode action triggered: {action}")
     # Placeholder: call MCP server or Render deploy hook
     return {"action": action, "status": "triggered"}
+
+from pydantic import BaseModel
+from typing import List
+from datetime import datetime
+
+class CeremonyStep(BaseModel):
+    role: str
+    agent: str
+    action: str
+    status: str
+    annotation: str
+
+class CeremonyLog(BaseModel):
+    scroll_id: str
+    timestamp: datetime
+    roles: List[CeremonyStep]
+    meta: dict
+
+@app.post("/log")
+async def log_ceremony(log: CeremonyLog):
+    filename = f"logs/{log.scroll_id}_{log.timestamp.isoformat()}.json"
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(log.json(indent=2))
+        log_covenantal_event(f"Ceremony log saved: {filename}")
+        return {"status": "logged", "scroll_id": log.scroll_id}
+    except Exception as e:
+        log_covenantal_event(f"Error saving ceremony log: {e}")
+        raise HTTPException(status_code=500, detail="Failed to save log.")
