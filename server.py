@@ -210,3 +210,8 @@ if __name__ == "__main__":
     # To run with uvicorn programmatically (less common for dev):
     # import uvicorn
     # uvicorn.run(app, host="0.0.0.0", port=8000)
+
+def trigger_agent_mode_action(action: str):
+    log_covenantal_event(f"Agent Mode action triggered: {action}")
+    # Placeholder: call MCP server or Render deploy hook
+    return {"action": action, "status": "triggered"}
