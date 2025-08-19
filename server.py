@@ -13,7 +13,10 @@ from pydantic import BaseModel
 
 # Assuming certify.py is in the same directory
 from certify import certify_scroll
-from agent_registry import router as registry_router
+from agent_registry import router as agent_registry_router
+
+app.include_router(agent_registry_router, prefix="/registry")
+
 from evaluate_scroll import router as evaluation_router
 
 LOG_FILE = "witness_log.txt"
