@@ -4,7 +4,7 @@ import os
 
 router = APIRouter()
 
-LOG_FILE_PATH = "ceremony_log.txt"
+LOG_FILE_PATH = "ceremony_log.scroll"
 
 @router.get("/logs", response_class=PlainTextResponse, tags=["Ceremony"])
 async def get_ceremony_logs():
