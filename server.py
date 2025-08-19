@@ -221,7 +221,9 @@ def startup_self_test():
         log_covenantal_event(f"Self-Test: ERROR during local scroll certification: {e}")
     log_covenantal_event("========= ✨ MCP Server Self-Test Concluded ✨ =========")
 
-if _name_ == "_main_":
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=10000)
     # This block is for direct execution (e.g., python server.py) 
     # but Uvicorn is the preferred way to run FastAPI apps.
     log_covenantal_event("Starting server via _main_ block (for self-test or basic run).")
